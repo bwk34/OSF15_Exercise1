@@ -10,6 +10,14 @@
 
 
 	//TODO FUNCTION COMMENT
+
+/*
+ * PURPOSE:
+ * INPUTS:
+ * RETURN:
+ **/
+
+
 bool parse_user_input (const char* input, Commands_t** cmd) {
 	
 	//TODO ERROR CHECK INCOMING PARAMETERS
