@@ -33,7 +33,16 @@ void load_matrix (Matrix_t* m, unsigned int* data);
 bool create_matrix (Matrix_t** new_matrix, const char* name, const unsigned int rows,
 						const unsigned int cols) {
 
-	//TODO ERROR CHECK INCOMING PARAMETERS
+	//TODO ERROR CHECK INCOMING PARAMETERS(finished)
+	if(!name){
+		printf("No name while create matrix.\n");
+		return false;
+	}
+	else if(rows<0 || cols<0){
+		printf("Invalid numberof rows or colums.\n");
+		return false;
+	}
+
 
 	*new_matrix = calloc(1,sizeof(Matrix_t));
 	if (!(*new_matrix)) {
@@ -54,12 +63,25 @@ bool create_matrix (Matrix_t** new_matrix, const char* name, const unsigned int 
 
 }
 
-	//TODO FUNCTION COMMENT
+	//TODO FUNCTION COMMENT(finished)
+
+/* 
+ * PURPOSE: free the memory of given matrix
+ * INPUTS: 
+ * m: An address of a matrix that need to be free.
+ * RETURN:
+ * No return.
+ *
+ **/
+
 
 void destroy_matrix (Matrix_t** m) {
 
-	//TODO ERROR CHECK INCOMING PARAMETERS
-	
+	//TODO ERROR CHECK INCOMING PARAMETERS(finished)
+	if(!m){
+		printf("No matrix for destroy.\n");
+		return;
+	}	
 	free((*m)->data);
 	free(*m);
 	*m = NULL;
@@ -67,10 +89,22 @@ void destroy_matrix (Matrix_t** m) {
 
 
 	
-	//TODO FUNCTION COMMENT
+	//TODO FUNCTION COMMENT(finished)
+
+/* 
+ * PURPOSE: Compare two matrix to see if they are same.
+ * INPUTS: 
+ *  a: Matrix need to compare with b
+ *  b: Matrix need to compare with a
+ * RETURN:
+ *  If no errors and two matrices are same then true
+ *  else false for an error in the process.
+ *
+ **/
+
 bool equal_matrices (Matrix_t* a, Matrix_t* b) {
 
-	//TODO ERROR CHECK INCOMING PARAMETERS
+	//TODO ERROR CHECK INCOMING PARAMETERS(done below)
 	
 	if (!a || !b || !a->data || !b->data) {
 		return false;	
@@ -83,7 +117,19 @@ bool equal_matrices (Matrix_t* a, Matrix_t* b) {
 	return false;
 }
 
-	//TODO FUNCTION COMMENT
+	//TODO FUNCTION COMMENT(finished)
+
+/* 
+ * PURPOSE: Copy the matrix src into matrix dest
+ * INPUTS: 
+ *  src: the source matrix
+ *  dest: the destination matrix
+ * RETURN:
+ *  If no errors occurred during the process of duplicate then true
+ *  else false for an error in the process.
+ *
+ **/
+
 bool duplicate_matrix (Matrix_t* src, Matrix_t* dest) {
 
 
@@ -100,7 +146,19 @@ bool duplicate_matrix (Matrix_t* src, Matrix_t* dest) {
 	return equal_matrices (src,dest);
 }
 
-	//TODO FUNCTION COMMENT
+	//TODO FUNCTION COMMENT(finished)
+/* 
+ * PURPOSE: shift the matrix to given direction for given bits
+ * INPUTS: 
+ *  a: matrix that need to be shift.
+ *  direction: The direction of bit shift, either left or right.
+ *  shift: number of bits that need to shift.
+ * RETURN:
+ *  If no errors occurred during the bit shift process then true
+ *  else false for an error in the process.
+ *
+ **/
+
 bool bitwise_shift_matrix (Matrix_t* a, char direction, unsigned int shift) {
 	
 	//TODO ERROR CHECK INCOMING PARAMETERS
