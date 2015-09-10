@@ -81,7 +81,7 @@ void destroy_commands(Commands_t** cmd) {
 
 	if(!cmd){
 		printf("No commands while trying to destroy commands\n");
-		return false;
+		return;
 	}
 	for (int i = 0; i < (*cmd)->num_cmds; ++i) {
 		free((*cmd)->cmds[i]);

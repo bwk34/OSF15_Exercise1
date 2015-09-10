@@ -44,7 +44,8 @@ int main (int argc, char **argv) {
 		printf("Fail to create matrix.\n");
 		return -1;
 	}
-	if(add_matrix_to_array(mats,temp, 10) == -1) { //TODO ERROR CHECK NEEDED(finished)
+	unsigned int pos = add_matrix_to_array(mats,temp, 10);
+	if(pos == -1) { //TODO ERROR CHECK NEEDED(finished)
 		printf("Fail to add matrix to array.\n");
 		return -1;
 	}
@@ -105,7 +106,10 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 		printf("Matricx is null while trying to run commands.\n");
 		return;
 	}
-	
+	else if(num_mats < 0){
+		printf("Invalid number of mtrix.\n");
+		return;
+	}	
 
 	/*Parsing and calling of commands*/
 	if (strncmp(cmd->cmds[0],"display",strlen("display") + 1) == 0
@@ -131,8 +135,8 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 					printf("Failure to create the result Matrix (%s)\n", cmd->cmds[3]);
 					return;
 				}
-			
-				if(add_matrix_to_array(mats,c, num_mats) == -1){ //TODO ERROR CHECK NEEDED(finished)
+				unsigned int pos = add_matrix_to_array(mats,c, num_mats)
+				if(pos == -1){ //TODO ERROR CHECK NEEDED(finished)
 			                printf("Fail to add matrix to array.\n");
 			                return;
 				}
@@ -152,7 +156,7 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 						mats[mat1_idx]->cols)) {
 					return;
 				}
-				if(duplicate_matrix (mats[mat1_idx], dup_mat) == flase){ //TODO ERROR CHECK NEEDED(finished)
+				if(duplicate_matrix (mats[mat1_idx], dup_mat) == false){ //TODO ERROR CHECK NEEDED(finished)
 					printf("Fail to duplicate matrix\n");
 					return;
 				}
@@ -238,7 +242,8 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 	                printf("Fail to create matrix.\n");
         	        return;
 		}
-		if(add_matrix_to_array(mats,new_mat,num_mats) == -1){ // TODO ERROR CHECK NEEDED(finished)
+		unsigned int pos2 = add_matrix_to_array(mats,new_mat,num_mats);
+		if(pos2 == -1){ // TODO ERROR CHECK NEEDED(finished)
 	                printf("Fail to add matrix to array.\n");
 	                return;
 		}
@@ -279,11 +284,11 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 unsigned int find_matrix_given_name (Matrix_t** mats, unsigned int num_mats, const char* target) {
 	//TODO ERROR CHECK INCOMING PARAMETERS(finished)
 	if(!mats){
-		printf("No matrices.\n")
+		printf("No matrices.\n");
 		return -1;
 	}
 	if(!target){
-		printf("No target to search for.\n")
+		printf("No target to search for.\n");
 		return -1;
 	}
 	for (int i = 0; i < num_mats; ++i) {
@@ -291,6 +296,7 @@ unsigned int find_matrix_given_name (Matrix_t** mats, unsigned int num_mats, con
 			return i;
 		}
 	}
+	printf("No matrix found.\n");
 	return -1;
 }
 
@@ -313,6 +319,11 @@ void destroy_remaining_heap_allocations(Matrix_t **mats, unsigned int num_mats) 
 		printf("No matrices need to be free.\n");
 		return;
 	}
-
+	int i=0;
 	// COMPLETE MISSING MEMORY CLEARING HERE
+	for(; i<num_mats ; i++){
+		if(mats[i]){
+			destroy_matrix(&mats[i]);
+		}
+	}
 }
