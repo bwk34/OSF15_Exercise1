@@ -135,7 +135,7 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 					printf("Failure to create the result Matrix (%s)\n", cmd->cmds[3]);
 					return;
 				}
-				unsigned int pos = add_matrix_to_array(mats,c, num_mats)
+				unsigned int pos = add_matrix_to_array(mats,c, num_mats);
 				if(pos == -1){ //TODO ERROR CHECK NEEDED(finished)
 			                printf("Fail to add matrix to array.\n");
 			                return;
@@ -172,7 +172,7 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 		}
 	}
 	else if (strncmp(cmd->cmds[0],"equal",strlen("equal") + 1) == 0
-		&& cmd->num_cmds == 2) {
+		&& cmd->num_cmds == 3) {
 			int mat1_idx = find_matrix_given_name(mats,num_mats,cmd->cmds[1]);
 			int mat2_idx = find_matrix_given_name(mats,num_mats,cmd->cmds[2]);
 			if (mat1_idx >= 0 && mat2_idx >= 0) {
@@ -207,7 +207,7 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 
 	}
 	else if (strncmp(cmd->cmds[0],"read",strlen("read") + 1) == 0
-		&& cmd->num_cmds == 2) {
+		&& cmd->num_cmds == 3) {
 		Matrix_t* new_matrix = NULL;
 		if(! read_matrix(cmd->cmds[1],&new_matrix)) {
 			printf("Read Failed\n");
@@ -222,7 +222,7 @@ void run_commands (Commands_t* cmd, Matrix_t** mats, unsigned int num_mats) {
 		printf("Matrix (%s) is read from the filesystem\n", cmd->cmds[1]);	
 	}
 	else if (strncmp(cmd->cmds[0],"write",strlen("write") + 1) == 0
-		&& cmd->num_cmds == 2) {
+		&& cmd->num_cmds == 3) {
 		int mat1_idx = find_matrix_given_name(mats,num_mats,cmd->cmds[1]);
 		if(! write_matrix(mats[mat1_idx]->name,mats[mat1_idx])) {
 			printf("Write Failed\n");

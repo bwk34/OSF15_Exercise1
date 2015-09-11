@@ -113,6 +113,7 @@ bool equal_matrices (Matrix_t* a, Matrix_t* b) {
 	//TODO ERROR CHECK INCOMING PARAMETERS(done below)
 	
 	if (!a || !b || !a->data || !b->data) {
+		printf("Either a or b has no data!\n");
 		return false;	
 	}
 
